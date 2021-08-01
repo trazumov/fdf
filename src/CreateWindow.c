@@ -1,5 +1,17 @@
 #include "../include/fdf.h"
 
+int deal_key(int key, t_map  *data)
+{
+	printf("key pressed %d\n", key);
+
+	if (key == 53)
+	{
+		exit(1);
+	}
+
+	return 0;
+}
+
 static void draw_fdf(void *mlx, void *win, t_map *myMap)
 {
     int x = 0;
@@ -22,7 +34,6 @@ static void draw_fdf(void *mlx, void *win, t_map *myMap)
 
 myCreateWindow(void *mlx, void *win, t_map *myMap)
 {
-    printf(" => Connection ...");
     if (!(mlx = mlx_init()))
     {
         printf(" !! KO !!\n"); return(1);
@@ -32,10 +43,7 @@ myCreateWindow(void *mlx, void *win, t_map *myMap)
     {
         printf(" !! KO !!\n"); return (1);
     }
-//    mlx_pixel_put(mlx, win, 250, 250, COLOR_RED);
-//    draw_line(0, 0, 100, 100, mlx, win, myMap);
-
     draw_fdf(mlx, win, myMap);
-    //sleep(5);
-    mlx_loop(mlx);
+    mlx_key_hook(win, deal_key, myMap);
+	mlx_loop(mlx);
 }
